@@ -1,5 +1,5 @@
-import prisma from '@/frontend/lib/prisma'
-import { timeAgo } from '@/frontend/lib/utils'
+import prisma from '@/lib/prisma'
+import { timeAgo } from '@/lib/utils'
 import Image from 'next/image'
 import RefreshButton from './refresh-button'
 
