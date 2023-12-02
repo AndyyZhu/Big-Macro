@@ -4,22 +4,38 @@ import { Suspense } from 'react'
 import Table from '@/components/table'
 import TablePlaceholder from '@/components/table-placeholder'
 import ExpandingArrow from '@/components/expanding-arrow'
+import Map from '@/components/map';
+
 
 export const dynamic = 'force-dynamic'
 
 export default function Home() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
+      
+      <h1 className="pt-40 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
+        Big Macro
+      </h1>
+      
       <Link
         href="https://vercel.com/templates/next.js/postgres-prisma"
-        className="group mt-20 sm:mt-0 rounded-full flex space-x-1 bg-white/30 shadow-sm ring-1 ring-gray-900/5 text-gray-600 text-sm font-medium px-10 py-2 hover:shadow-lg active:shadow-sm transition-all"
+        className="group mt-20 mb-10 sm:mt-0 rounded-full flex space-x-1 bg-white/30 shadow-sm ring-1 ring-gray-900/5 text-gray-600 text-sm font-medium px-10 py-2 hover:shadow-lg active:shadow-sm transition-all"
       >
-        <p>Deploy your own to Vercel</p>
+        <p>Placeholder, allow location?</p>
         <ExpandingArrow />
       </Link>
-      <h1 className="pt-4 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
-        Postgres on Vercel
-      </h1>
+
+      <Map/>
+      <div className="mb-10"></div>
+
+      <Suspense fallback={<TablePlaceholder />}>
+        <Table />
+      </Suspense>
+
+      <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-3xl">
+        Best Options Near You
+      </h2>
+
       <Suspense fallback={<TablePlaceholder />}>
         <Table />
       </Suspense>
@@ -66,6 +82,11 @@ export default function Home() {
         >
           Drizzle
         </Link>
+        <p         
+          className="mb-10 font-medium"
+        >
+          co
+        </p>
       </div>
 
       <div className="sm:absolute sm:bottom-0 w-full px-20 py-10 flex justify-between">
