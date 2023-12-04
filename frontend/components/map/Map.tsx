@@ -3,7 +3,7 @@
 import 'leaflet/dist/leaflet.css'
 import style from '../../styles/Home.module.css'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { mcD, tims } from './icons'
+import { user, mcD, tims } from './icons'
 
 function Map(props: any) {
 
@@ -14,6 +14,11 @@ function Map(props: any) {
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            />
+
+            <Marker
+                position={[43.9029, -79.4396]}
+                icon={user}
             />
 
             {locationsArray.map((location: any) => {
