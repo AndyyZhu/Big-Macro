@@ -2,20 +2,42 @@
 
 import 'leaflet/dist/leaflet.css'
 import style from '../../styles/Home.module.css'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { user, mcD, tims } from './icons'
 
-import { MapContainer, TileLayer } from 'react-leaflet'
+function Map(props: any) {
 
-function Map() {
+    const locationsArray = props.data
+
     return ( 
-        <MapContainer className={style.map} center={[43.653, -79.383]} zoom={8} scrollWheelZoom={true}>
+        <MapContainer className={style.map} center={[43.9029, -79.4396]} zoom={13} scrollWheelZoom={true}>
             <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             />
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="http://127.0.0.1:8000/tiles/{z}/{x}/{y}.png"
+
+            <Marker
+                position={[43.9029, -79.4396]}
+                icon={user}
             />
+
+            {locationsArray.map((location: any) => {
+                let icon = mcD
+                if (location.name == 'Tim Hortons') {
+                  icon = tims
+                }    
+                return (
+                    <Marker
+                        key={location.id} 
+                        position={[location.lat, location.lng]}
+                        icon={icon}
+                    >
+                        <Popup>
+                            {location.name} <br /> {location.vicinity}
+                        </Popup>
+                    </Marker>
+                )
+            })}
         </MapContainer>
      );
 }
