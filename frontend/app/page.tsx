@@ -5,13 +5,16 @@ import Table from '@/components/table'
 import TablePlaceholder from '@/components/table-placeholder'
 import ExpandingArrow from '@/components/expanding-arrow'
 import Map from '@/components/map';
-import { getData } from '@/utils/getChainData'
+import { getData } from '@/api/getChainData'
+import { ChainData } from './interfaces'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
 
-  const data = await getData()
+  const data: ChainData = await getData()
+
+  // once api is set up, make request for api call here and pass data to tables
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
@@ -28,11 +31,11 @@ export default async function Home() {
         <ExpandingArrow />
       </Link>
 
-      <Map data={data} />
+      <Map data={data.total} />
       <div className="mb-10"></div>
 
       <Suspense fallback={<TablePlaceholder />}>
-        <Table />
+        <Table data={data.nearbyChains}/>
       </Suspense>
 
       <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-3xl">
@@ -40,7 +43,7 @@ export default async function Home() {
       </h2>
 
       <Suspense fallback={<TablePlaceholder />}>
-        <Table />
+        <Table data={data.nearbyChains}/>
       </Suspense>
       <p className="font-light text-gray-600 w-full max-w-lg text-center mt-6">
         <Link

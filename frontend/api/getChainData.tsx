@@ -1,13 +1,19 @@
+import { ChainData } from "@/app/interfaces";
 
-const fastfoodChains: string[] = ["Mcdonalds", "Tim Horton's"];
+const fastfoodChains: string[] = ["Mcdonalds", "Tim Horton's", "Mcdgibberish"];
 
-export async function getData() {
+export async function getData(): Promise<ChainData> {
+
+  let data_object: ChainData = {
+    total: [],
+    nearbyChains: []
+  }
 
   try {
     const apiKey = process.env.GOOGLE_API_KEY;
 
     let total: string[] = [];
-
+    let nearbyChains: string[] = [];
 
     for (const chain of fastfoodChains) {
 
@@ -15,7 +21,6 @@ export async function getData() {
 
       const response = await fetch(apiUrl, { cache: 'force-cache'});
       const data = await response.json();
-  
       const chainLocations = data.results.map((result: any) => ({
         name: result.name,
         vicinity: result.vicinity,
@@ -24,12 +29,15 @@ export async function getData() {
         lng: result.geometry.location.lng,
       }));
       total = [...total, ...chainLocations] // concat arrays
-
+      chainLocations.length === 0 ? nearbyChains : nearbyChains.push(chain) // add chain if there exists a nearby chain loction
     }
 
-    return total
+    data_object.total = total
+    data_object.nearbyChains = nearbyChains
+
+    return data_object
   } catch (error) {
     console.error('Error fetching McDonald\'s locations:', error);
-    return []
+    return data_object
   }
 }
