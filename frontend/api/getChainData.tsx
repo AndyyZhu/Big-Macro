@@ -1,6 +1,6 @@
 import { ChainData } from "@/app/interfaces";
 
-const fastfoodChains: string[] = ["Mcdonalds", "Tim Horton's", "Mcdgibberish"];
+const fastfoodChains: string[] = ["Mcdonalds", "Tim Horton's"];
 
 export async function getData(): Promise<ChainData> {
 
