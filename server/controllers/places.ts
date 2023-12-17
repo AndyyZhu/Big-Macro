@@ -1,5 +1,5 @@
 import express from 'express';
-import config from '../utils/config.js';
+import config from '../utils/config';
 
 const placesRouter = express.Router();
 
@@ -8,6 +8,8 @@ GET nearby fastfood locations
 */
 placesRouter.get('/near', async (req, res) => {
   try {
+
+    console.log("here")
 
     const location = req.query.location
     const radius = req.query.radius
