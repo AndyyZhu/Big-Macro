@@ -23,7 +23,7 @@ export default async function Table(props : any) {
         <RefreshButton />
       </div>
       <div className="divide-y divide-gray-900/5">
-        {foodItems.map((food) => (
+        {foodItems.map((food : any) => (
           <div
             key={food.name}
             className="flex items-center justify-between py-3"
