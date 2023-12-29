@@ -25,8 +25,22 @@ model restauranttypes {
 }
 
 model menuitems {
-  item_id       Int             @id @default(autoincrement())
-  name          String
-  restaurant_id Int
-  restaurant    restauranttypes @relation(fields: [restaurant_id], references: [restaurant_id])
+  item_id         Int               @id @default(autoincrement())
+  name            String
+  restaurant_id   Int
+  restaurant      restauranttypes   @relation(fields: [restaurant_id], references: [restaurant_id])
+  nutritionalinfo nutritionalinfo[]
+}
+
+model nutritionalinfo {
+  info_id             Int       @id @default(autoincrement())
+  item_id             Int
+  calories            Int
+  fat_grams           Float
+  sodium_grams        Int
+  carbohydrates_grams Int
+  fibre_grams         Int
+  sugar_grams         Int
+  protein_grams       Float
+  menuitem            menuitems @relation(fields: [item_id], references: [item_id])
 }
