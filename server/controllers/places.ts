@@ -9,8 +9,6 @@ GET nearby fastfood locations
 placesRouter.get('/near', async (req : any, res) => {
   try {
 
-    console.log("here")
-
     const location = req.query.location
     const radius = req.query.radius
     const chain = req.query.chain

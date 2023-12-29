@@ -15,7 +15,6 @@ export default async function Home() {
 
   const chainData = await getChainData()
   const foodData = await getFoodItems()
-  console.log(foodData)
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">

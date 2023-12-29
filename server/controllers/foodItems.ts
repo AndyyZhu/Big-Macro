@@ -1,5 +1,5 @@
 import express from 'express';
-import prisma from '../prisma/prisma'
+import prisma from '../prisma/prisma';
 
 const foodRouter = express.Router();
 
@@ -10,7 +10,7 @@ GET food items
 */
 foodRouter.get('/', async (req, res) => {
   try {
-    const users = await prisma.users.findMany()
+    const users = await prisma.restauranttypes.findMany()
     res.json(users);
   } catch (error) {
     console.error('Error fetching places:', error);
