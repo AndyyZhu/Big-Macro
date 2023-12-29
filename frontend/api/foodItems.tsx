@@ -1,14 +1,18 @@
 
-export async function getFoodItems() {
+export async function getFoodItems( nearbyChains : string[] ) {
 
   try {
 
-    const apiUrl = `http://localhost:8080/api/food`;
+    const queryString = `stringArray=${encodeURIComponent(JSON.stringify(nearbyChains))}`;
 
-    const response = await fetch(apiUrl, { cache: 'force-cache'});
-    const users = await response.json();
+    const apiUrl = `http://localhost:8080/api/food?${queryString}`;
 
-    return users
+    const response = await fetch(apiUrl, { 
+      method: 'GET',
+      cache: 'force-cache'
+    });
+    const food = await response.json();
+    return food
 
   } catch (error) {
     console.error('Error fetching food items:', error);
