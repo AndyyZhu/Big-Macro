@@ -19,6 +19,14 @@ model users {
 }
 
 model restauranttypes {
-  restaurant_id Int    @id @default(autoincrement())
+  restaurant_id Int         @id @default(autoincrement())
   name          String
+  menuitems     menuitems[]
+}
+
+model menuitems {
+  item_id       Int             @id @default(autoincrement())
+  name          String
+  restaurant_id Int
+  restaurant    restauranttypes @relation(fields: [restaurant_id], references: [restaurant_id])
 }
