@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic'
 export default async function Home() {
 
   const chainData = await getChainData()
-  const foodData = await getFoodItems()
+  const foodData = await getFoodItems(chainData.nearbyChains)
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
@@ -31,7 +31,7 @@ export default async function Home() {
         <ExpandingArrow />
       </Link>
 
-      <Map data={chainData} />
+      <Map data={chainData.allLocations} />
       <div className="mb-10"></div>
 
       <Suspense fallback={<TablePlaceholder />}>
