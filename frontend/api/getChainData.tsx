@@ -1,7 +1,7 @@
 
 const fastfoodChains: string[] = ["Mcdonalds", "Tim Horton's"];
 
-export async function getData() {
+export async function getChainData() {
 
   try {
     const apiKey = process.env.GOOGLE_API_KEY;

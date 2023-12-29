@@ -1,12 +1,12 @@
 import express from 'express';
-import config from '../utils/config.js';
+import config from '../utils/config';
 
 const placesRouter = express.Router();
 
 /*
 GET nearby fastfood locations
 */
-placesRouter.get('/near', async (req, res) => {
+placesRouter.get('/near', async (req : any, res) => {
   try {
 
     const location = req.query.location
@@ -16,7 +16,7 @@ placesRouter.get('/near', async (req, res) => {
 
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&keyword=${chain}&key=${apiKey}`;
 
-    const response = await fetch(url);
+    const response : any = await fetch(url);
     res.json(response.data);
 
   } catch (error) {

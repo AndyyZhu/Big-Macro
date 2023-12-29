@@ -1,11 +1,14 @@
-import prisma from '@/lib/prisma'
 import { timeAgo } from '@/lib/utils'
 import Image from 'next/image'
 import RefreshButton from './refresh-button'
 
-export default async function Table() {
+export default async function Table(props : any) {
+
+  const { data } = props
+  const users = data
+
   const startTime = Date.now()
-  const users = await prisma.users.findMany()
+  // const users = await prisma.users.findMany()
   const duration = Date.now() - startTime
 
   return (
