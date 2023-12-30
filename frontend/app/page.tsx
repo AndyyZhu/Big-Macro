@@ -6,7 +6,7 @@ import TablePlaceholder from '@/components/table-placeholder'
 import ExpandingArrow from '@/components/expanding-arrow'
 import Map from '@/components/map';
 import { getChainData } from '@/api/getChainData'
-import { getFoodItems } from '@/api/foodItems'
+import { getNutritionInfo } from '@/api/calcNutrition'
 
 
 export const dynamic = 'force-dynamic'
@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic'
 export default async function Home() {
 
   const chainData = await getChainData()
-  const foodData = await getFoodItems(chainData.nearbyChains)
+  const nutriData = await getNutritionInfo()
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
@@ -54,7 +54,7 @@ export default async function Home() {
       </h2>
 
       <Suspense fallback={<TablePlaceholder />}>
-        <Table data={foodData} />
+        <Table data={nutriData} />
       </Suspense>
 
       <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-3xl">
@@ -62,7 +62,7 @@ export default async function Home() {
       </h2>
 
       <Suspense fallback={<TablePlaceholder />}>
-        <Table data={foodData} />
+        <Table data={nutriData} />
       </Suspense>
       
       <p className="mt-40 mb-20 font-light text-gray-600 w-full max-w-lg text-center mt-6">
