@@ -7,6 +7,8 @@ export default async function Table(props : any) {
   const { data } = props
   const users = data
 
+  // console.log(users)
+
   const startTime = Date.now()
   // const users = await prisma.users.findMany()
   const duration = Date.now() - startTime
@@ -37,7 +39,7 @@ export default async function Table(props : any) {
                 className="rounded-full ring-1 ring-gray-900/5"
               />
               <div className="space-y-1">
-                <p className="font-medium leading-none">{user.name}</p>
+                <p className="font-medium leading-none">{user.calories}</p>
                 <p className="text-sm text-gray-500">{user.email}</p>
               </div>
             </div>
