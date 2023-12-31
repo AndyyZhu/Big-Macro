@@ -129,6 +129,7 @@
 }
 
 .map {
-  width: 80%;
-  height: 40rem;
+  width: 70%;
+  max-width: 100rem;
+  height: 45rem;
 }
