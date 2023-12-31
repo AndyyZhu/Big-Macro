@@ -19,88 +19,75 @@ export default async function Home() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
       
-      <h1 className="pt-40 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
-        Big Macro
-      </h1>
-      
-      <Link
-        href="https://vercel.com/templates/next.js/postgres-prisma"
+      <div className="relative flex items-center justify-center">
+        <Image src="/Subway.png" width={60} height={60} alt="Subway" className="absolute left-0 top-1/2 transform -translate-y-1/2 md:w-16 md:h-16 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
+        <Image src="/Mcd.png" width={75} height={75} alt="Mcd" className="absolute left-5 top-1/5 transform -translate-y-1/2 w-16 h-16 md:w-24 md:h-24 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
+
+        <div>
+          <h1 className="pt-40 pb-8 mx-20 max-w-6xl bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-5xl font-bold tracking-tight md:text-7xl">
+            Uncover the Best Macronutrient-Rich Meals from Local Menus
+          </h1>
+          <h2 className="pb-8 mx-20 max-w-6xl text-center text-xl font-normal tracking-tight md:text-2xl">
+            Discover the quickest and easiest fast-food protein options, perfect for when you need to grab a bite on the go. Enjoy the convenience of fast food without sacrificing your macronutrient goals.
+          </h2>
+        </div>
+
+        <Image src="/Popeyes.png" width={60} height={60} alt="Popeyes" className="absolute right-1 top-1/2 transform translate-x-5 translate-y-20 w-16 h-16 md:w-16 md:h-16 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
+        <Image src="/Chipotle.png" width={75} height={75} alt="Chipotle" className="absolute right-0 top-1/2 transform translate-y-3 w-16 h-16 md:w-20 md:h-20 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
+        <Image src="/Tims.png" width={75} height={75} alt="Tims" className="absolute right-5 top-1/5 transform -translate-y-1/2 w-16 h-16 md:w-24 md:h-24 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
+      </div>
+
+
+      <div
         className="group mt-20 mb-10 sm:mt-0 rounded-full flex space-x-1 bg-white/30 shadow-sm ring-1 ring-gray-900/5 text-gray-600 text-sm font-medium px-10 py-2 hover:shadow-lg active:shadow-sm transition-all"
       >
-        <p>Placeholder, allow location?</p>
+        <p>Allow location?</p>
         <ExpandingArrow />
-      </Link>
+      </div>
 
-      <Map data={chainData.allLocations} />
-      <div className="mb-10"></div>
+      <div className="mt-5"></div>
+      <Map data={chainData.allLocations}/>
+      <div className="mb-20"></div>
 
-      <Suspense fallback={<TablePlaceholder />}>
-        <Table data={foodData} />
-      </Suspense>
-
-      <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-3xl">
+      <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-4xl font-medium tracking-tight text-transparent md:text-3xl">
         Best Options Near You
       </h2>
 
       <Suspense fallback={<TablePlaceholder />}>
         <Table data={foodData} />
       </Suspense>
-      <p className="font-light text-gray-600 w-full max-w-lg text-center mt-6">
+
+      <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-3xl">
+        Best Options Overall
+      </h2>
+
+      <Suspense fallback={<TablePlaceholder />}>
+        <Table data={foodData} />
+      </Suspense>
+      
+      <p className="mt-40 mb-20 font-light text-gray-600 w-full max-w-lg text-center mt-6">
+        Made by{' '}
         <Link
-          href="https://vercel.com/postgres"
+          href="https://www.kylezhou.com/"
+          target="_blank"
           className="font-medium underline underline-offset-4 hover:text-black transition-colors"
         >
-          Vercel Postgres
+          Kyle
         </Link>{' '}
-        demo with{' '}
+        and{' '}
         <Link
-          href="https://prisma.io"
+          href="https://github.com/AndyyZhu"
+          target="_blank"
           className="font-medium underline underline-offset-4 hover:text-black transition-colors"
         >
-          Prisma
-        </Link>{' '}
-        as the ORM. <br /> Built with{' '}
-        <Link
-          href="https://nextjs.org/docs"
-          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
-        >
-          Next.js App Router
+          Andy
         </Link>
         .
       </p>
 
-      <div className="flex justify-center space-x-5 pt-10 mt-10 mb-10 border-t border-gray-300 w-full max-w-xl text-gray-600">
-        <Link
-          href="https://postgres-starter.vercel.app/"
-          className="font-medium underline underline-offset-4 hover:text-black transition-colors"
-        >
-          Starter
-        </Link>
-      </div>
-
       <div className="sm:absolute sm:bottom-0 w-full px-20 py-10 flex justify-between">
-        <Link href="https://vercel.com">
-          <Image
-            src="/vercel.svg"
-            alt="Vercel Logo"
-            width={100}
-            height={24}
-            priority
-          />
-        </Link>
-        <Link
-          href="https://github.com/vercel/examples/tree/main/storage/postgres-prisma"
-          className="flex items-center space-x-2"
-        >
-          <Image
-            src="/github.svg"
-            alt="GitHub Logo"
-            width={24}
-            height={24}
-            priority
-          />
-          <p className="font-light">Source</p>
-        </Link>
+        {/* insert bottom left and bottom right icons here */}
+        {/* className="flex items-center space-x-2" */}
       </div>
     </main>
   )

@@ -30,7 +30,7 @@ export default async function Table(props : any) {
           >
             <div className="flex items-center space-x-4">
               <Image
-                src={food.image}
+                src={food.logo}
                 alt={food.name}
                 width={48}
                 height={48}
