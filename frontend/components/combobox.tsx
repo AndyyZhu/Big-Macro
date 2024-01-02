@@ -25,6 +25,14 @@ const filters = [
     value: "protein/calorie ratio",
     label: "Protein/Calorie Ratio",
   },
+  {
+    value: "highest carb",
+    label: "Highest Carb",
+  },
+  {
+    value: "highest calories",
+    label: "Highest Calories",
+  },
 ]
 
 export function Combobox({updateFoodFilter} : any) {
@@ -42,7 +50,7 @@ export function Combobox({updateFoodFilter} : any) {
         >
           {value
             ? filters.find((filter) => filter.value === value)?.label
-            : "Select framework..."}
+            : "Highest Protein"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

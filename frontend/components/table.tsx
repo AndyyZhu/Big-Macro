@@ -21,25 +21,32 @@ import {
 export default function TableWrapper(props : any) {
 
   const { data } = props
-  const foodItems = data["Highest Protein"]
 
+  const updateData = (filterString: string) => {
+    var res : any = []
+    data.forEach((restaurant_object : any)=> {
+      if (filterString == "highest protein") {
+        res = [...res, ...restaurant_object["Highest Protein"]]
+      } else if (filterString == "protein/calorie ratio") {
+        res = [...res, ...restaurant_object["Highest Protein/Cal Ratio"]]
+      } else if (filterString == "highest carb") {
+        res = [...res, ...restaurant_object["Highest Carb"]]
+      } else if (filterString == "highest calories") {
+        res = [...res, ...restaurant_object["Highest Cal"]]
+      }
+    }); 
+  
+    return res
+  }
+
+  const foodItems = updateData("highest protein")
   const [foodData, setFoodData] = React.useState(foodItems)
-  const [foodFilter, setFoodFilter] = React.useState("Highest Protein")
-
 
   // Callback function to receive data from the child Combobox component
-  const handleFilterChange = (filterString : any) => {
-    console.log(filterString)
-    if (filterString == "highest protein") {
-      setFoodData(data["Highest Protein"])
-    } else if (filterString == "protein/calorie ratio") {
-      setFoodData(data["Highest Protein/Cal Ratio"])
-    }
+  const handleFilterChange = (filterString : string) => {
+    setFoodData(updateData(filterString))
   };
   
-
-  // console.log(users)
-
   const startTime = Date.now()
   const duration = Date.now() - startTime
 
