@@ -13,7 +13,7 @@ type extendedNutritionInfo = {
     item_id: number;
     calories: number;
     fat_grams: number;
-    sodium_grams: number;
+    sodium_mg: number;
     carbohydrates_grams: number;
     fibre_grams: number;
     sugar_grams: number;
@@ -39,7 +39,7 @@ foodRouter.get('/calcNutrition', async (req, res) => {
               select: {
                 calories: true,
                 fat_grams: true,
-                sodium_grams: true,
+                sodium_mg: true,
                 carbohydrates_grams: true,
                 fibre_grams: true,
                 sugar_grams: true,
