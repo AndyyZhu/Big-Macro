@@ -21,6 +21,7 @@ model users {
 model restauranttypes {
   restaurant_id Int         @id @default(autoincrement())
   name          String
+  logo          String
   menuitems     menuitems[]
 }
 

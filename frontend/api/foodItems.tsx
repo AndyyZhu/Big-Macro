@@ -5,7 +5,7 @@ export async function getRestaurantTypes() {
 
     const apiUrl = `http://localhost:8080/api/food/getRestaurantTypes`;
 
-    const response = await fetch(apiUrl, { cache: 'force-cache'});
+    const response = await fetch(apiUrl);
     const users = await response.json();
 
     return users
@@ -22,7 +22,7 @@ export async function getMenuItems() {
 
     const apiUrl = `http://localhost:8080/api/food/getMenuItems`;
 
-    const response = await fetch(apiUrl, { cache: 'force-cache'});
+    const response = await fetch(apiUrl);
     const users = await response.json();
 
     return users
@@ -39,7 +39,7 @@ export async function getNutritionInfo() {
 
     const apiUrl = `http://localhost:8080/api/food/getNutritionalInfo`;
 
-    const response = await fetch(apiUrl, { cache: 'force-cache'});
+    const response = await fetch(apiUrl);
     const users = await response.json();
 
     return users

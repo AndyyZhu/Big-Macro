@@ -7,6 +7,7 @@ import ExpandingArrow from '@/components/expanding-arrow'
 import Map from '@/components/map';
 import { getChainData } from '@/api/getChainData'
 import { getRestaurantTypes, getMenuItems, getNutritionInfo } from '@/api/foodItems'
+import { calcNutrition } from '@/api/calcNutrition'
 // import { getNutritionInfo } from '@/api/calcNutrition'
 
 
@@ -17,6 +18,9 @@ export default async function Home() {
   const chainData = await getChainData()
   const restaurantData = await getRestaurantTypes()
   const nutriData = await getNutritionInfo()
+  const highestProtein = await calcNutrition()
+
+  console.log(highestProtein)
 
   // console.log(restaurantData)
   // console.log(nutriData)

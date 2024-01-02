@@ -13,7 +13,7 @@ export async function getChainData() {
 
       const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=43.9029,-79.4396&radius=4000&type=restaurant&keyword=${chain}&key=${apiKey}`;
 
-      const response = await fetch(apiUrl, { cache: 'force-cache'});
+      const response = await fetch(apiUrl);
       const data = await response.json();
   
       const chainLocations = data.results.map((result: any) => ({
