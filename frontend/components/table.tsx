@@ -62,7 +62,7 @@ export default function TableWrapper(props : any) {
             <TableHead className="w-[130px]">Restaurant</TableHead>
             <TableHead className="w-[200px]">Item</TableHead>
             <TableHead className="w-[120px]">Calories</TableHead>
-            <TableHead className="w-[120px]">Protein (g)</TableHead>
+            <TableHead className="w-[130px]">Protein (g)</TableHead>
             <TableHead className="w-[120px]">Carbs (g)</TableHead>
             <TableHead className="w-[120px]">Fat (g)</TableHead>
             <TableHead className="text-right">Protein/Calories</TableHead>
