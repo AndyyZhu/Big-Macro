@@ -1,4 +1,4 @@
-﻿item_id,calories,fat_grams,sodium_grams,carbohydrates_grams,fibre_grams,sugar_grams,protein_grams
+﻿item_id,calories,fat_grams,sodium_mg,carbohydrates_grams,fibre_grams,sugar_grams,protein_grams
 535,290,15,990,8,,1,32
 536,290,15,780,8,,1,32
 537,150,8,420,3,,1,17
