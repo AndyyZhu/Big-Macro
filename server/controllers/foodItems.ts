@@ -24,36 +24,6 @@ type extendedNutritionInfo = {
 /*
 GET food items
 */
-foodRouter.get('/getRestaurantTypes', async (req, res) => {
-  try {
-    const users = await prisma.restauranttypes.findMany()
-    res.json(users);
-  } catch (error) {
-    console.error('Error fetching places:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-foodRouter.get('/getMenuItems', async (req, res) => {
-  try {
-    const nutrition = await prisma.menuitems.findMany()
-    res.json(nutrition)
-  } catch (error) {
-    console.error('Error fetching places:', error);
-    res.status(400).json({ error: 'Database Issue'})
-  }
-});
-
-foodRouter.get('/getNutritionalInfo', async (req, res) => {
-  try {
-    const nutrition = await prisma.nutritionalinfo.findMany()
-    // getHighestProtein(['Tim Hortons'])
-    res.json(nutrition)
-  } catch (error) {
-    console.error('Error fetching places:', error);
-    res.status(400).json({ error: 'Database Issue'})
-  }
-});
 
 foodRouter.get('/calcNutrition', async (req, res) => {
   const restaurant = 'Tim Hortons';
@@ -83,6 +53,8 @@ foodRouter.get('/calcNutrition', async (req, res) => {
 
     const highestProteinData = await getHighestProtein(restaurant, restaurantData); // Pass restaurantData and result to the function
     result.set("Highest Protein", highestProteinData)
+    const highestProteinCal = await getProteinCalRatio(restaurant, restaurantData)
+    result.set("Highest Protein/Cal Ratio", highestProteinCal)
     res.json(result)
 
     console.log("result:", result);
@@ -104,10 +76,10 @@ async function getHighestProtein(restaurant: string, restaurantData: any | null)
     );
 
     // Get the top 3 items or all available items if there are less than 3
-    const topItems = sortedMenuItems.slice(0, 3);
+    const topProtein = sortedMenuItems.slice(0, 5);
 
     // Add the top items to result
-    topItems.forEach(menuItem => {
+    topProtein.forEach(menuItem => {
       const extendedInfo: extendedNutritionInfo = {
         itemName: menuItem.name,
         restaurantName: restaurant,
@@ -122,8 +94,34 @@ async function getHighestProtein(restaurant: string, restaurantData: any | null)
 }
 
 
-function getProteinCalRatio(restaurants : []) {
-  
+async function getProteinCalRatio(restaurant: string, restaurantData: any | null): Promise<Array<extendedNutritionInfo>> {
+  const res: Array<extendedNutritionInfo> = [];
+
+  if (restaurantData) {
+    const menuItems = restaurantData.menuitems;
+
+    // Sort menuItems by the protein-to-calorie ratio in descending order
+    const sortedMenuItems = menuItems
+      .map(menuItem => ({
+        itemName: menuItem.name,
+        restaurantName: restaurant,
+        logo: restaurantData.logo,
+        nutritionalinfo: menuItem.nutritionalinfo,
+        ratio: menuItem.nutritionalinfo.reduce((total: number, info: any) => total + info.protein_grams, 0) /
+               menuItem.nutritionalinfo.reduce((total: number, info: any) => total + info.calories, 0) || 0,
+      }))
+      .sort((a, b) => b.ratio - a.ratio);
+
+    // Get the top 5 items or all available items if there are less than 5
+    const topRatioItems = sortedMenuItems.slice(0, 5);
+
+    // Add the top items to result
+    topRatioItems.forEach(menuItem => {
+      res.push(menuItem);
+    });
+  }
+
+  return res;
 }
 
 function getHighestCarbs(restaurants : []) {
