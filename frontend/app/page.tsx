@@ -15,6 +15,9 @@ export default async function Home() {
 
   const chainData = await getChainData()
   const nutriData = await getNutritionInfo()
+  const highestProtein = await getNutritionInfo()
+
+  console.log(highestProtein)
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
