@@ -31,7 +31,7 @@ foodRouter.get('/calcNutrition', async (req, res) => {
   try {
     // Process each restaurant
     await Promise.all(restaurants.map(async (restaurant) => {
-      const result: Map<string, any> = new Map();
+      const result : any = {};
 
       const restaurantData = await prisma.restauranttypes.findFirst({
         where: { name: restaurant },
@@ -54,13 +54,13 @@ foodRouter.get('/calcNutrition', async (req, res) => {
       });
 
       const highestProteinData = await getHighestProtein(restaurant, restaurantData);
-      result.set("Highest Protein", highestProteinData);
+      result["Highest Protein"] = highestProteinData;
       const highestProteinCal = await getProteinCalRatio(restaurant, restaurantData);
-      result.set("Highest Protein/Cal Ratio", highestProteinCal);
+      result["Highest Protein/Cal Ratio"] = highestProteinCal;
       const highestCarb = await getHighestCarbs(restaurant, restaurantData);
-      result.set("Highest Carb", highestCarb);
+      result["Highest Carb"] = highestCarb;
       const highestCal = await getHighestCals(restaurant, restaurantData);
-      result.set("Highest Cal", highestCal);
+      result["Highest Cal"] = highestCal;
 
       allResults.push(result);
     }));
