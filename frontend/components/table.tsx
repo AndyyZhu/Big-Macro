@@ -64,7 +64,8 @@ export default function TableWrapper(props : any) {
             <TableHead className="w-[120px]">Calories</TableHead>
             <TableHead className="w-[120px]">Protein (g)</TableHead>
             <TableHead className="w-[120px]">Carbs (g)</TableHead>
-            <TableHead className="text-right">Fat (g)</TableHead>
+            <TableHead className="w-[120px]">Fat (g)</TableHead>
+            <TableHead className="text-right">Protein/Calories</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -87,6 +88,7 @@ export default function TableWrapper(props : any) {
             <TableCell>{food.nutritionalinfo[0].protein_grams}</TableCell>
             <TableCell>{food.nutritionalinfo[0].carbohydrates_grams}</TableCell>
             <TableCell className="text-right">{food.nutritionalinfo[0].fat_grams}</TableCell>
+            <TableCell className="text-right"> {(food.nutritionalinfo[0].protein_grams / food.nutritionalinfo[0].calories).toFixed(3)}</TableCell>
           </TableRow>
         ))}
 
