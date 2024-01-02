@@ -38,6 +38,8 @@ export default function TableWrapper(props : any) {
   };
   
 
+  // console.log(users)
+
   const startTime = Date.now()
   const duration = Date.now() - startTime
 

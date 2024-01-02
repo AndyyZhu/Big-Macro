@@ -38,9 +38,8 @@ model nutritionalinfo {
   item_id             Int
   calories            Int
   fat_grams           Float
-  sodium_mg           Int
+  sodium_mg        Int
   carbohydrates_grams Int
-  fibre_grams         Int
   sugar_grams         Int
   protein_grams       Float
   menuitem            menuitems @relation(fields: [item_id], references: [item_id])
