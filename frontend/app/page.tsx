@@ -32,7 +32,7 @@ export default async function Home() {
           </h2>
         </div>
 
-        <Image src="/Popeyes.png" width={60} height={60} alt="Popeyes" className="absolute right-1 top-1/2 transform translate-x-5 translate-y-20 w-16 h-16 md:w-16 md:h-16 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
+        <Image src="/Popeyes.svg" width={60} height={60} alt="Popeyes" className="absolute right-1 top-1/2 transform translate-x-5 translate-y-20 w-16 h-16 md:w-16 md:h-16 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
         <Image src="/Chipotle.png" width={75} height={75} alt="Chipotle" className="absolute right-0 top-1/2 transform translate-y-3 w-16 h-16 md:w-20 md:h-20 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
         <Image src="/Tims.png" width={75} height={75} alt="Tims" className="absolute right-5 top-1/5 transform -translate-y-1/2 w-16 h-16 md:w-24 md:h-24 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
       </div>

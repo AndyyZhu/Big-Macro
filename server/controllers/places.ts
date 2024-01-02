@@ -9,15 +9,19 @@ GET nearby fastfood locations
 placesRouter.get('/near', async (req : any, res) => {
   try {
 
-    const location = req.query.location
-    const radius = req.query.radius
-    const chain = req.query.chain
     const apiKey = config.GOOGLE_API_KEY
 
-    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&keyword=${chain}&key=${apiKey}`;
+    const lat = req.query.lat
+    const lng = req.query.lng
+    const radius = req.query.radius
+    const chain = req.query.chain
 
-    const response : any = await fetch(url);
-    res.json(response.data);
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=restaurant&keyword=${chain}&key=${apiKey}`;
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    res.json(data);
 
   } catch (error) {
     console.error('Error fetching places:', error);
