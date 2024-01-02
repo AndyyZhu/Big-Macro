@@ -13,7 +13,7 @@ type extendedNutritionInfo = {
     item_id: number;
     calories: number;
     fat_grams: number;
-    sodium_grams: number;
+    sodium_mg: number;
     carbohydrates_grams: number;
     fibre_grams: number;
     sugar_grams: number;
@@ -39,7 +39,7 @@ foodRouter.get('/calcNutrition', async (req, res) => {
               select: {
                 calories: true,
                 fat_grams: true,
-                sodium_grams: true,
+                sodium_mg: true,
                 carbohydrates_grams: true,
                 fibre_grams: true,
                 sugar_grams: true,
@@ -55,6 +55,11 @@ foodRouter.get('/calcNutrition', async (req, res) => {
     result.set("Highest Protein", highestProteinData)
     const highestProteinCal = await getProteinCalRatio(restaurant, restaurantData)
     result.set("Highest Protein/Cal Ratio", highestProteinCal)
+    const highestCarb = await getHighestCarbs(restaurant, restaurantData)
+    result.set("Highest Carb", highestCarb)
+    const highestCal = await getHighestCals(restaurant, restaurantData)
+    result.set("Highest Cal", highestCal)
+
     res.json(result)
 
     console.log("result:", result);
@@ -62,37 +67,6 @@ foodRouter.get('/calcNutrition', async (req, res) => {
     console.error(`Error processing restaurant ${restaurant}:`, error);
   }
 });
-
-async function getHighestProtein(restaurant: string, restaurantData: any | null): Promise<Array<extendedNutritionInfo>> {
-  const res: Array<extendedNutritionInfo> = [];
-
-  if (restaurantData) {
-    const menuItems = restaurantData.menuitems;
-
-    // Sort menuItems by the sum of protein_grams in descending order
-    const sortedMenuItems = menuItems.sort((a, b) =>
-      b.nutritionalinfo.reduce((total, info) => total + info.protein_grams, 0) -
-      a.nutritionalinfo.reduce((total, info) => total + info.protein_grams, 0)
-    );
-
-    // Get the top 3 items or all available items if there are less than 3
-    const topProtein = sortedMenuItems.slice(0, 5);
-
-    // Add the top items to result
-    topProtein.forEach(menuItem => {
-      const extendedInfo: extendedNutritionInfo = {
-        itemName: menuItem.name,
-        restaurantName: restaurant,
-        logo: restaurantData.logo,
-        nutritionalinfo: menuItem.nutritionalinfo
-      }
-      res.push(extendedInfo)
-    });
-  }
-  
-  return res;
-}
-
 
 async function getProteinCalRatio(restaurant: string, restaurantData: any | null): Promise<Array<extendedNutritionInfo>> {
   const res: Array<extendedNutritionInfo> = [];
@@ -124,9 +98,94 @@ async function getProteinCalRatio(restaurant: string, restaurantData: any | null
   return res;
 }
 
-function getHighestCarbs(restaurants : []) {
+async function getHighestProtein(restaurant: string, restaurantData: any | null): Promise<Array<extendedNutritionInfo>> {
+  const res: Array<extendedNutritionInfo> = [];
+
+  if (restaurantData) {
+    const menuItems = restaurantData.menuitems;
+
+    // Sort menuItems by the sum of protein_grams in descending order
+    const sortedMenuItems = menuItems.sort((a, b) =>
+      b.nutritionalinfo.reduce((total, info) => total + info.protein_grams, 0) -
+      a.nutritionalinfo.reduce((total, info) => total + info.protein_grams, 0)
+    );
+
+    // Get the top 3 items or all available items if there are less than 3
+    const topProtein = sortedMenuItems.slice(0, 5);
+
+    // Add the top items to result
+    topProtein.forEach(menuItem => {
+      const extendedInfo: extendedNutritionInfo = {
+        itemName: menuItem.name,
+        restaurantName: restaurant,
+        logo: restaurantData.logo,
+        nutritionalinfo: menuItem.nutritionalinfo
+      }
+      res.push(extendedInfo)
+    });
+  }
   
+  return res;
 }
 
+function getHighestCarbs(restaurant: string, restaurantData: any | null) {
+  const res: Array<extendedNutritionInfo> = [];
+
+  if (restaurantData) {
+    const menuItems = restaurantData.menuitems;
+
+    // Sort menuItems by the sum of carbohydrates_grams in descending order
+    const sortedMenuItems = menuItems.sort((a, b) =>
+      b.nutritionalinfo.reduce((total, info) => total + info.carbohydrates_grams, 0) -
+      a.nutritionalinfo.reduce((total, info) => total + info.carbohydrates_grams, 0)
+    );
+
+    // Get the top 3 items or all available items if there are less than 3
+    const topCarbs = sortedMenuItems.slice(0, 5);
+
+    // Add the top items to result
+    topCarbs.forEach(menuItem => {
+      const extendedInfo: extendedNutritionInfo = {
+        itemName: menuItem.name,
+        restaurantName: restaurant,
+        logo: restaurantData.logo,
+        nutritionalinfo: menuItem.nutritionalinfo
+      }
+      res.push(extendedInfo)
+    });
+  }
+  
+  return res;
+}
+
+function getHighestCals(restaurant: string, restaurantData: any | null) {
+  const res: Array<extendedNutritionInfo> = [];
+
+  if (restaurantData) {
+    const menuItems = restaurantData.menuitems;
+
+    // Sort menuItems by the sum of calories in descending order
+    const sortedMenuItems = menuItems.sort((a, b) =>
+      b.nutritionalinfo.reduce((total, info) => total + info.calories, 0) -
+      a.nutritionalinfo.reduce((total, info) => total + info.calories, 0)
+    );
+
+    // Get the top 3 items or all available items if there are less than 3
+    const topCals = sortedMenuItems.slice(0, 5);
+
+    // Add the top items to result
+    topCals.forEach(menuItem => {
+      const extendedInfo: extendedNutritionInfo = {
+        itemName: menuItem.name,
+        restaurantName: restaurant,
+        logo: restaurantData.logo,
+        nutritionalinfo: menuItem.nutritionalinfo
+      }
+      res.push(extendedInfo)
+    });
+  }
+  
+  return res;
+}
 
 export default foodRouter

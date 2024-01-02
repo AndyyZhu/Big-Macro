@@ -17,7 +17,7 @@ CREATE TABLE NutritionalInfo (
     item_id INT REFERENCES MenuItems(item_id),
     calories INT,
     fat_grams FLOAT,
-    sodium_grams INT,
+    sodium_mg INT,
     carbohydrates_grams INT,
     fibre_grams INT,
     sugar_grams INT,
