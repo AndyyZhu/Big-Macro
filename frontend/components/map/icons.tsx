@@ -21,3 +21,10 @@ export const tims = new Icon ({
     iconAnchor : [10,10],
     popupAnchor : [0, 0]
 })
+
+export const popeyes = new Icon ({
+  iconUrl : 'Popeyes.svg',
+  iconSize : [22,22],
+  iconAnchor : [10,10],
+  popupAnchor : [0, 0]
+})
