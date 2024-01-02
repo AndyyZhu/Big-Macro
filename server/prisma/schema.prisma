@@ -38,7 +38,7 @@ model nutritionalinfo {
   item_id             Int
   calories            Int
   fat_grams           Float
-  sodium_grams        Int
+  sodium_mg           Int
   carbohydrates_grams Int
   fibre_grams         Int
   sugar_grams         Int

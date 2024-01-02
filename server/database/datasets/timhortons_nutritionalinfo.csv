@@ -1,4 +1,4 @@
-﻿item_id,calories,fat_grams,sodium_grams,carbohydrates_grams,fibre_grams,sugar_grams,protein_grams
+﻿item_id,calories,fat_grams,sodium_mg,carbohydrates_grams,fibre_grams,sugar_grams,protein_grams
 268,3,0,0,0,0,0,0
 269,4,0,0,0,0,0,0
 270,5,0,0,0,0,0,0
