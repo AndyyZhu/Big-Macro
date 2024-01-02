@@ -27,7 +27,7 @@ GET food items
 
 foodRouter.get('/calcNutrition', async (req, res) => {
   const restaurant = 'Tim Hortons';
-  const result: Map<string, any> = new Map();
+  const result : any= {}
 
   try {
     const restaurantData = await prisma.restauranttypes.findFirst({
@@ -52,9 +52,9 @@ foodRouter.get('/calcNutrition', async (req, res) => {
     });
 
     const highestProteinData = await getHighestProtein(restaurant, restaurantData); // Pass restaurantData and result to the function
-    result.set("Highest Protein", highestProteinData)
+    result["Highest Protein"] = highestProteinData
     const highestProteinCal = await getProteinCalRatio(restaurant, restaurantData)
-    result.set("Highest Protein/Cal Ratio", highestProteinCal)
+    result["Highest Protein/Cal Ratio"] = highestProteinCal
     res.json(result)
 
     console.log("result:", result);

@@ -14,10 +14,7 @@ export const dynamic = 'force-dynamic'
 export default async function Home() {
 
   const chainData = await getChainData()
-  const nutriData = await getNutritionInfo()
   const highestProtein = await getNutritionInfo()
-
-  console.log(highestProtein)
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
@@ -57,7 +54,7 @@ export default async function Home() {
       </h2>
 
       <Suspense fallback={<TablePlaceholder />}>
-        <Table data={nutriData} />
+        <Table data={highestProtein} />
       </Suspense>
 
       <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-3xl">
@@ -65,9 +62,10 @@ export default async function Home() {
       </h2>
 
       <Suspense fallback={<TablePlaceholder />}>
-        <Table data={nutriData} />
+        <Table data={highestProtein} />
       </Suspense>
       
+      <div className='mt-10'></div>
       <p className="mt-40 mb-20 font-light text-gray-600 w-full max-w-lg text-center mt-6">
         Made by{' '}
         <Link
