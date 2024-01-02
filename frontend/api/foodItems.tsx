@@ -1,3 +1,4 @@
+import SERVER_URL from "@/lib/envPath";
 
 export async function getFoodItems( nearbyChains : string[] ) {
 
@@ -5,7 +6,7 @@ export async function getFoodItems( nearbyChains : string[] ) {
 
     const queryString = `stringArray=${encodeURIComponent(JSON.stringify(nearbyChains))}`;
 
-    const apiUrl = `http://localhost:8080/api/food?${queryString}`;
+    const apiUrl = `${SERVER_URL}/api/food?${queryString}`;
 
     const response = await fetch(apiUrl, { 
       method: 'GET',

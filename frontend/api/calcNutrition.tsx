@@ -1,8 +1,10 @@
+import SERVER_URL from "@/lib/envPath";
+
 export async function getNutritionInfo() {
 
     try {
   
-      const apiUrl = `http://localhost:8080/api/food/calcNutrition`;
+      const apiUrl = `${SERVER_URL}/api/food/calcNutrition`;
   
       const response = await fetch(apiUrl);
       const users = await response.json();
