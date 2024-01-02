@@ -19,7 +19,6 @@ CREATE TABLE NutritionalInfo (
     fat_grams FLOAT,
     sodium_mg INT,
     carbohydrates_grams INT,
-    fibre_grams INT,
     sugar_grams INT,
     protein_grams FLOAT
 );

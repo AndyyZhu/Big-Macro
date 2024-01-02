@@ -15,7 +15,6 @@ type extendedNutritionInfo = {
     fat_grams: number;
     sodium_mg: number;
     carbohydrates_grams: number;
-    fibre_grams: number;
     sugar_grams: number;
     protein_grams: number;
   }
@@ -26,45 +25,52 @@ GET food items
 */
 
 foodRouter.get('/calcNutrition', async (req, res) => {
-  const restaurant = 'Tim Hortons';
-  const result: Map<string, any> = new Map();
+  const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds'];
+  const allResults: Array<Map<string, any>> = [];
 
   try {
-    const restaurantData = await prisma.restauranttypes.findFirst({
-      where: { name: restaurant },
-      include: {
-        menuitems: {
-          include: {
-            nutritionalinfo: {
-              select: {
-                calories: true,
-                fat_grams: true,
-                sodium_mg: true,
-                carbohydrates_grams: true,
-                fibre_grams: true,
-                sugar_grams: true,
-                protein_grams: true,
+    // Process each restaurant
+    await Promise.all(restaurants.map(async (restaurant) => {
+      const result: Map<string, any> = new Map();
+
+      const restaurantData = await prisma.restauranttypes.findFirst({
+        where: { name: restaurant },
+        include: {
+          menuitems: {
+            include: {
+              nutritionalinfo: {
+                select: {
+                  calories: true,
+                  fat_grams: true,
+                  sodium_mg: true,
+                  carbohydrates_grams: true,
+                  sugar_grams: true,
+                  protein_grams: true,
+                },
               },
             },
           },
         },
-      },
-    });
+      });
 
-    const highestProteinData = await getHighestProtein(restaurant, restaurantData); // Pass restaurantData and result to the function
-    result.set("Highest Protein", highestProteinData)
-    const highestProteinCal = await getProteinCalRatio(restaurant, restaurantData)
-    result.set("Highest Protein/Cal Ratio", highestProteinCal)
-    const highestCarb = await getHighestCarbs(restaurant, restaurantData)
-    result.set("Highest Carb", highestCarb)
-    const highestCal = await getHighestCals(restaurant, restaurantData)
-    result.set("Highest Cal", highestCal)
+      const highestProteinData = await getHighestProtein(restaurant, restaurantData);
+      result.set("Highest Protein", highestProteinData);
+      const highestProteinCal = await getProteinCalRatio(restaurant, restaurantData);
+      result.set("Highest Protein/Cal Ratio", highestProteinCal);
+      const highestCarb = await getHighestCarbs(restaurant, restaurantData);
+      result.set("Highest Carb", highestCarb);
+      const highestCal = await getHighestCals(restaurant, restaurantData);
+      result.set("Highest Cal", highestCal);
 
-    res.json(result)
+      allResults.push(result);
+    }));
 
-    console.log("result:", result);
+    res.json(allResults);
+
+    console.log("allResults:", allResults[1]);
   } catch (error) {
-    console.error(`Error processing restaurant ${restaurant}:`, error);
+    console.error(`Error processing restaurants:`, error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
