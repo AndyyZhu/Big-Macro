@@ -31,8 +31,9 @@ export default async function TableWrapper(props : any) {
           <TableRow>
             <TableHead className="w-[130px]">Restaurant</TableHead>
             <TableHead className="w-[200px]">Item</TableHead>
-            <TableHead className="w-[120px]">Protein (g)</TableHead>
             <TableHead className="w-[120px]">Calories</TableHead>
+            <TableHead className="w-[120px]">Protein (g)</TableHead>
+            <TableHead className="w-[120px]">Carbs (g)</TableHead>
             <TableHead className="text-right">Fat (g)</TableHead>
           </TableRow>
         </TableHeader>
@@ -40,7 +41,7 @@ export default async function TableWrapper(props : any) {
         <TableBody>
 
         {foodItems.map((food : any) => (
-          <TableRow key={food.item_id}>
+          <TableRow key={food.itemName}>
             <TableCell>
               <Image
                 src={food.logo}
@@ -51,10 +52,11 @@ export default async function TableWrapper(props : any) {
               />
             </TableCell>
             
-            <TableCell className="font-medium">{food.name}</TableCell>
-            <TableCell>5</TableCell>
-            <TableCell>5</TableCell>
-            <TableCell className="text-right">32</TableCell>
+            <TableCell className="font-medium">{food.itemName}</TableCell>
+            <TableCell>{food.nutritionalinfo[0].calories}</TableCell>
+            <TableCell>{food.nutritionalinfo[0].protein_grams}</TableCell>
+            <TableCell>{food.nutritionalinfo[0].carbohydrates_grams}</TableCell>
+            <TableCell className="text-right">{food.nutritionalinfo[0].fat_grams}</TableCell>
           </TableRow>
         ))}
 
