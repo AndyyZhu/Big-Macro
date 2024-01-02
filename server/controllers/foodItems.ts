@@ -67,7 +67,7 @@ foodRouter.get('/calcNutrition', async (req, res) => {
 
     res.json(allResults);
 
-    console.log("allResults:", allResults[1]);
+    console.log("allResults:", allResults);
   } catch (error) {
     console.error(`Error processing restaurants:`, error);
     res.status(500).json({ error: "Internal Server Error" });

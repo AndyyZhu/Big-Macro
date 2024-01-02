@@ -1,13 +1,19 @@
+import { ChainData } from "@/app/interfaces";
 
 const fastfoodChains: string[] = ["Mcdonalds", "Tim Horton's"];
 
-export async function getChainData() {
+export async function getChainData(): Promise<ChainData> {
+
+  let data_object: ChainData = {
+    allLocations: [],
+    nearbyChains: []
+  }
 
   try {
     const apiKey = process.env.GOOGLE_API_KEY;
 
-    let total: string[] = [];
-
+    let allLocations: string[] = [];
+    let nearbyChains: string[] = [];
 
     for (const chain of fastfoodChains) {
 
@@ -23,13 +29,17 @@ export async function getChainData() {
         lat: result.geometry.location.lat,
         lng: result.geometry.location.lng,
       }));
-      total = [...total, ...chainLocations] // concat arrays
-
+      allLocations = [...allLocations, ...chainLocations] // concat arrays
+      chainLocations.length === 0 ? nearbyChains : nearbyChains.push(chain) // add chain if there exists a nearby chain loction
     }
 
-    return total
+    data_object.allLocations = allLocations
+    data_object.nearbyChains = nearbyChains
+
+    return data_object
+
   } catch (error) {
     console.error('Error fetching McDonald\'s locations:', error);
-    return []
+    return data_object
   }
 }

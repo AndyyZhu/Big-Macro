@@ -1,4 +1,4 @@
-export async function calcNutrition() {
+export async function getNutritionInfo() {
 
     try {
   

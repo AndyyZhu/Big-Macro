@@ -1,48 +1,18 @@
 
-export async function getRestaurantTypes() {
+export async function getFoodItems( nearbyChains : string[] ) {
 
   try {
 
-    const apiUrl = `http://localhost:8080/api/food/getRestaurantTypes`;
+    const queryString = `stringArray=${encodeURIComponent(JSON.stringify(nearbyChains))}`;
 
-    const response = await fetch(apiUrl);
-    const users = await response.json();
+    const apiUrl = `http://localhost:8080/api/food?${queryString}`;
 
-    return users
-
-  } catch (error) {
-    console.error('Error fetching food items:', error);
-    return []
-  }
-}
-
-export async function getMenuItems() {
-
-  try {
-
-    const apiUrl = `http://localhost:8080/api/food/getMenuItems`;
-
-    const response = await fetch(apiUrl);
-    const users = await response.json();
-
-    return users
-
-  } catch (error) {
-    console.error('Error fetching food items:', error);
-    return []
-  }
-}
-
-export async function getNutritionInfo() {
-
-  try {
-
-    const apiUrl = `http://localhost:8080/api/food/getNutritionalInfo`;
-
-    const response = await fetch(apiUrl);
-    const users = await response.json();
-
-    return users
+    const response = await fetch(apiUrl, { 
+      method: 'GET',
+      cache: 'force-cache'
+    });
+    const food = await response.json();
+    return food
 
   } catch (error) {
     console.error('Error fetching food items:', error);
