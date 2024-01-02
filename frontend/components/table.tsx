@@ -1,6 +1,11 @@
+"use client"
+
+import * as React from "react"
+
 import { timeAgo } from '@/lib/utils'
 import Image from 'next/image'
 import RefreshButton from './refresh-button'
+import { Combobox } from '@/components/combobox'
 
 import {
   Table,
@@ -13,18 +18,34 @@ import {
 } from "@/components/ui/table"
 
 
-export default async function TableWrapper(props : any) {
+export default function TableWrapper(props : any) {
 
   const { data } = props
-  const foodItems = data
+  const foodItems = data["Highest Protein"]
+
+  const [foodData, setFoodData] = React.useState(foodItems)
+  const [foodFilter, setFoodFilter] = React.useState("Highest Protein")
+
+
+  // Callback function to receive data from the child Combobox component
+  const handleFilterChange = (filterString : any) => {
+    console.log(filterString)
+    if (filterString == "highest protein") {
+      setFoodData(data["Highest Protein"])
+    } else if (filterString == "protein/calorie ratio") {
+      setFoodData(data["Highest Protein/Cal Ratio"])
+    }
+  };
+  
 
   const startTime = Date.now()
-  // const users = await prisma.users.findMany()
   const duration = Date.now() - startTime
 
   return (
     <div className="bg-white/30 p-12 shadow-xl ring-1 ring-gray-900/5 rounded-lg backdrop-blur-lg max-w-4xl mx-auto w-full">
-      
+      <div className="mb-5">
+        <Combobox updateFoodFilter={handleFilterChange}/>
+      </div>
       <Table>
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
@@ -40,7 +61,7 @@ export default async function TableWrapper(props : any) {
 
         <TableBody>
 
-        {foodItems.map((food : any) => (
+        {foodData.map((food : any) => (
           <TableRow key={food.itemName}>
             <TableCell>
               <Image

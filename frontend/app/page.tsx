@@ -14,9 +14,7 @@ export const dynamic = 'force-dynamic'
 export default async function Home() {
 
   const chainData = await getChainData()
-  const nutriData = await getNutritionInfo()
-
-  const highestProtein = nutriData["Highest Protein"]
+  const highestProtein = await getNutritionInfo()
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
