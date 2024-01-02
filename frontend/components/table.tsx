@@ -47,7 +47,7 @@ export default function TableWrapper(props : any) {
         <Combobox updateFoodFilter={handleFilterChange}/>
       </div>
       <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
+        <TableCaption>A list of the top options</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[130px]">Restaurant</TableHead>

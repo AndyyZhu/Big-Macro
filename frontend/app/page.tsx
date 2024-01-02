@@ -65,6 +65,7 @@ export default async function Home() {
         <Table data={highestProtein} />
       </Suspense>
       
+      <div className='mt-10'></div>
       <p className="mt-40 mb-20 font-light text-gray-600 w-full max-w-lg text-center mt-6">
         Made by{' '}
         <Link
