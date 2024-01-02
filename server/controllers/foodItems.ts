@@ -92,7 +92,6 @@ foodRouter.get('/calcNutrition', async (req, res) => {
 });
 
 async function getHighestProtein(restaurant: string, restaurantData: any | null): Promise<Array<extendedNutritionInfo>> {
-  const resultArray: Array<{ restaurant: string, menuItem: string, proteinAmount: number }> = [];
   const res: Array<extendedNutritionInfo> = [];
 
   if (restaurantData) {
@@ -109,7 +108,6 @@ async function getHighestProtein(restaurant: string, restaurantData: any | null)
 
     // Add the top items to result
     topItems.forEach(menuItem => {
-      const proteinAmount = menuItem.nutritionalinfo.reduce((total, info) => total + info.protein_grams, 0);
       const extendedInfo: extendedNutritionInfo = {
         itemName: menuItem.name,
         restaurantName: restaurant,
@@ -117,11 +115,6 @@ async function getHighestProtein(restaurant: string, restaurantData: any | null)
         nutritionalinfo: menuItem.nutritionalinfo
       }
       res.push(extendedInfo)
-      resultArray.push({
-        restaurant,
-        menuItem: menuItem.name,
-        proteinAmount,
-      });
     });
   }
   
