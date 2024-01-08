@@ -1,7 +1,7 @@
 import { ChainData } from "@/app/interfaces";
 import SERVER_URL from "@/lib/envPath";
 
-const fastfoodChains: string[] = ["Mcdonalds", "Tim Horton's", "Popeyes Louisiana Kitchen"];
+const fastfoodChains: string[] = ["Mcdonalds", "Tim Horton's", "Popeyes Louisiana Kitchen", "Subway"];
 
 export async function getChainData(lat : number, lng : number): Promise<ChainData> {
 

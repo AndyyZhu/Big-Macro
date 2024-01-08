@@ -25,7 +25,7 @@ GET food items
 */
 
 foodRouter.get('/calcNutrition', async (req, res) => {
-  const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds'];
+  const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds', 'Subway']; // These need to be identical to the names in the DB
   const allResults: Array<Map<string, any>> = [];
 
   try {
