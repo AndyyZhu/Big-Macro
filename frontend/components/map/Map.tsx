@@ -4,24 +4,47 @@ import 'leaflet/dist/leaflet.css'
 import style from '../../styles/Home.module.css'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { user, mcD, tims, popeyes } from './icons'
+import { useContext, useEffect, useState } from 'react'
+import { LocationContext, allowedLocationContext } from "@/context/locationContext"
+import { getChainData } from '@/api/getChainData'
 
 function Map(props: any) {
 
-    const locationsArray = props.data
+    // var locationsArray = props.data
+    const [locationsArray, setLocationsArray] = useState<string []>([])
+    let { userCoordinates, setUserCoordinates } = useContext(LocationContext);
+    const {allowedLocation, setAllowedLocation} = useContext(allowedLocationContext)
 
-    return ( 
-        <MapContainer className={style.map} center={[43.9029, -79.4396]} zoom={13} scrollWheelZoom={true}>
+    useEffect(() => {
+
+        if (allowedLocation) {
+            const retrieveChainData = async (lat: number, lng: number) => {
+                const chainData = await getChainData(lat, lng)
+                setLocationsArray(chainData.allLocations)
+            }
+            retrieveChainData(userCoordinates[0], userCoordinates[1])
+        }
+        return () => {
+          // Cleanup code here
+        };
+    }, [userCoordinates, allowedLocation]);
+    
+
+    return (
+        <MapContainer className={style.map} center={userCoordinates} zoom={13} scrollWheelZoom={true}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             />
 
-            <Marker
-                position={[43.9029, -79.4396]}
-                icon={user}
-            />
+            {allowedLocation && (
+                <Marker
+                    position={userCoordinates}
+                    icon={user}
+                />
+            )}
 
-            {locationsArray.map((location: any) => {
+            {locationsArray && locationsArray.map((location: any) => {
                 let icon = mcD
                 if (location.name == 'Tim Hortons') {
                   icon = tims

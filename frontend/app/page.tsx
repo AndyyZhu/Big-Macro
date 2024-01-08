@@ -5,15 +5,13 @@ import Table from '@/components/table'
 import TablePlaceholder from '@/components/table-placeholder'
 import ExpandingArrow from '@/components/expanding-arrow'
 import Map from '@/components/map';
-import { getChainData } from '@/api/getChainData'
 import { getNutritionInfo } from '@/api/calcNutrition'
-
+import MapWrapper from '@/components/mapWrapper'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
 
-  const chainData = await getChainData()
   const nutriData = await getNutritionInfo()
 
   return (
@@ -37,17 +35,7 @@ export default async function Home() {
         <Image src="/Tims.png" width={75} height={75} alt="Tims" className="absolute right-5 top-1/5 transform -translate-y-1/2 w-16 h-16 md:w-24 md:h-24 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
       </div>
 
-
-      <div
-        className="group mt-20 mb-10 sm:mt-0 rounded-full flex space-x-1 bg-white/30 shadow-sm ring-1 ring-gray-900/5 text-gray-600 text-sm font-medium px-10 py-2 hover:shadow-lg active:shadow-sm transition-all"
-      >
-        <p>Allow location?</p>
-        <ExpandingArrow />
-      </div>
-
-      <div className="mt-5"></div>
-      <Map data={chainData.allLocations}/>
-      <div className="mb-20"></div>
+      <MapWrapper />
 
       <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-4xl font-medium tracking-tight text-transparent md:text-3xl">
         Best Options Near You
