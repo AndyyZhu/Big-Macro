@@ -14,5 +14,5 @@ interface allowedLocationContextProps {
   setAllowedLocation: Dispatch<SetStateAction<boolean>>;
 }
 
-export const LocationContext = createContext<UserCoordinatesContextProps | undefined>(undefined);
-export const allowedLocationContext = createContext<allowedLocationContextProps | undefined>(undefined);
+export const LocationContext = createContext<UserCoordinatesContextProps>({userCoordinates: [0, 0], setUserCoordinates: () => {}});
+export const allowedLocationContext = createContext<allowedLocationContextProps>({allowedLocation: false, setAllowedLocation: () => {}});

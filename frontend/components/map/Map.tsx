@@ -11,7 +11,7 @@ import { getChainData } from '@/api/getChainData'
 function Map(props: any) {
 
     // var locationsArray = props.data
-    const [locationsArray, setLocationsArray] = useState([])
+    const [locationsArray, setLocationsArray] = useState<string []>([])
     let { userCoordinates, setUserCoordinates } = useContext(LocationContext);
     const {allowedLocation, setAllowedLocation} = useContext(allowedLocationContext)
 
