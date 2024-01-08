@@ -3,7 +3,7 @@ import SERVER_URL from "@/lib/envPath";
 
 const fastfoodChains: string[] = ["Mcdonalds", "Tim Horton's", "Popeyes Louisiana Kitchen"];
 
-export async function getChainData(): Promise<ChainData> {
+export async function getChainData(lat : number, lng : number): Promise<ChainData> {
 
   let data_object: ChainData = {
     allLocations: [],
@@ -11,7 +11,6 @@ export async function getChainData(): Promise<ChainData> {
   }
 
   try {
-    const apiKey = process.env.GOOGLE_API_KEY;
 
     let allLocations: string[] = [];
     let nearbyChains: string[] = [];
@@ -19,8 +18,6 @@ export async function getChainData(): Promise<ChainData> {
     for (const chain of fastfoodChains) {
 
       const radius = 4000
-      const lat = 43.9029
-      const lng = -79.4396
 
       const apiUrl = `${SERVER_URL}/api/places/near?radius=${radius}&lat=${lat}&lng=${lng}&chain=${chain}`
 
