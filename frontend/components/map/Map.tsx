@@ -3,7 +3,7 @@
 import 'leaflet/dist/leaflet.css'
 import style from '../../styles/Home.module.css'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { user, mcD, tims, popeyes } from './icons'
+import { user, mcD, tims, popeyes, subway } from './icons'
 import { useContext, useEffect, useState } from 'react'
 import { LocationContext, allowedLocationContext } from "@/context/locationContext"
 import { getChainData } from '@/api/getChainData'
@@ -50,6 +50,8 @@ function Map(props: any) {
                   icon = tims
                 } else if (location.name == 'Popeyes Louisiana Kitchen') {
                     icon = popeyes
+                } else if (location.name == 'Subway') {
+                    icon = subway
                 }
                 return (
                     <Marker

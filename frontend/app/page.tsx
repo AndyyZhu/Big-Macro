@@ -18,7 +18,7 @@ export default async function Home() {
     <main className="relative flex min-h-screen flex-col items-center justify-center">
       
       <div className="relative flex items-center justify-center">
-        <Image src="/Subway.png" width={60} height={60} alt="Subway" className="absolute left-0 top-1/2 transform -translate-y-1/2 md:w-16 md:h-16 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
+        <Image src="/Subway.svg" width={60} height={60} alt="Subway" className="absolute left-0 top-1/2 transform -translate-y-1/2 md:w-16 md:h-16 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
         <Image src="/Mcd.png" width={75} height={75} alt="Mcd" className="absolute left-5 top-1/5 transform -translate-y-1/2 w-16 h-16 md:w-24 md:h-24 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
 
         <div>
