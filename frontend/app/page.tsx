@@ -37,13 +37,14 @@ export default async function Home() {
 
       <MapWrapper />
 
-      <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-4xl font-medium tracking-tight text-transparent md:text-3xl">
+      {/* Commenting out the nearby table until we get tables per restaurant */}
+      {/* <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-4xl font-medium tracking-tight text-transparent md:text-3xl">
         Best Options Near You
       </h2>
 
       <Suspense fallback={<TablePlaceholder />}>
         <Table data={nutriData} />
-      </Suspense>
+      </Suspense> */}
 
       <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-3xl">
         Best Options Overall

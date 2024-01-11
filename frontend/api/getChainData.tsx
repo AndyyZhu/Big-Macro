@@ -17,7 +17,7 @@ export async function getChainData(lat : number, lng : number): Promise<ChainDat
 
     for (const chain of fastfoodChains) {
 
-      const radius = 4000
+      const radius = 1500
 
       const apiUrl = `${SERVER_URL}/api/places/near?radius=${radius}&lat=${lat}&lng=${lng}&chain=${chain}`
 
