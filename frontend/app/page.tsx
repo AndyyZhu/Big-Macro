@@ -51,7 +51,7 @@ export default async function Home() {
       </h2>
 
       <Suspense fallback={<TablePlaceholder />}>
-        <Table data={nutriData} />
+        <Table data={nutriData.total} />
       </Suspense>
       
       <div className='mt-10'></div>

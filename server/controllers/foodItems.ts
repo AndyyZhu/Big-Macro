@@ -20,50 +20,6 @@ type extendedNutritionInfo = {
   }
 };
 
-/*
-GET all food items
-*/
-foodRouter.get('/calcAllNutrition', async (req, res) => {
-  const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds', 'Subway']; // These need to be identical to the names in the DB
-
-  var result : any = {};
-
-  try {
-    // Process each restaurant
-    await Promise.all(restaurants.map(async (restaurant) => {
-
-      const allNutriInfo = await prisma.nutritionalinfo.findMany();
-      
-      // sort by top 20 best in every category
-      allNutriInfo.sort((a, b) => b.protein_grams - a.protein_grams);
-      const top10Protein = allNutriInfo.slice(0, 20);
-      allNutriInfo.sort((a, b) => b.calories - a.calories);
-      const top10Calories = allNutriInfo.slice(0, 20);
-      allNutriInfo.sort((a, b) => b.carbohydrates_grams - a.carbohydrates_grams);
-      const top10Carbs = allNutriInfo.slice(0, 20);
-      allNutriInfo.sort((a, b) => (b.protein_grams / b.calories) - (a.protein_grams / a.calories));
-      const top10Ratio = allNutriInfo.slice(0, 20);
-
-      // for each of the top 20 -> add the extendedNutritionInfo
-
-      result = {
-        "Highest Protein" : top10Protein,
-        "Highest Protein/Cal Ratio" : top10Calories,
-        "Highest Carb" : top10Carbs,
-        "Highest Cal" : top10Ratio,
-      };
-
-    }));
-
-    res.json(result);
-
-    // console.log("allResults:", allResults);
-  } catch (error) {
-    console.error(`Error processing restaurants:`, error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
 
 /*
 GET nearby food items
@@ -109,9 +65,43 @@ foodRouter.get('/calcNutrition', async (req, res) => {
       allResults.push(result);
     }));
 
-    res.json(allResults);
+    // Flatten the array of objects into a single array of objects
+    const flattenedArray = allResults.flatMap(obj => [...obj["Highest Protein"], ...obj["Highest Protein/Cal Ratio"], ...obj["Highest Carb"], ...obj["Highest Cal"]]);
 
-    console.log("allResults:", allResults);
+    // Function to sort and filter duplicates for each filter type
+    const sortAndFilter = (arr : any, comparator : any) => {
+      const uniqueSet = new Set();
+      return arr
+        .sort(comparator)
+        .filter(obj => {
+          const key = obj.itemName; // Use a key that makes an object unique
+          if (!uniqueSet.has(key)) {
+            uniqueSet.add(key);
+            return true;
+          }
+          return false;
+        })
+        .slice(0, 20);
+    };
+
+    // Sort and filter for each filter type
+    const topProtein = sortAndFilter([...flattenedArray], (a, b) => b.nutritionalinfo[0].protein_grams - a.nutritionalinfo[0].protein_grams);
+    const topCalories = sortAndFilter([...flattenedArray], (a, b) => b.nutritionalinfo[0].calories - a.nutritionalinfo[0].calories);
+    const topCarbs = sortAndFilter([...flattenedArray], (a, b) => b.nutritionalinfo[0].carbohydrates_grams - a.nutritionalinfo[0].carbohydrates_grams);
+    const topRatio = sortAndFilter([...flattenedArray], (a, b) => (b.nutritionalinfo[0].protein_grams / b.nutritionalinfo[0].calories) - (a.nutritionalinfo[0].protein_grams / a.nutritionalinfo[0].calories));
+
+    const totalData = [{
+      "Highest Protein": topProtein,
+      "Highest Protein/Cal Ratio": topRatio,
+      "Highest Carb": topCarbs,
+      "Highest Cal": topCalories,
+    }]
+
+    res.json({
+      nearby: allResults,
+      total: totalData
+    });
+
   } catch (error) {
     console.error(`Error processing restaurants:`, error);
     res.status(500).json({ error: "Internal Server Error" });
