@@ -46,7 +46,7 @@ export default async function Home() {
         <Table data={nutriData} />
       </Suspense> */}
 
-      <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-3xl">
+      <h2 className="pt-20 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight md:text-3xl">
         Best Options Overall
       </h2>
 

@@ -62,8 +62,7 @@ export default function TableWrapper(props : any) {
         <Combobox updateFoodFilter={handleFilterChange}/>
         <Popover>
           <PopoverTrigger>
-            {/* <Button variant="outline">info</Button> */}
-            <button className="border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-full py-0.5 px-3 text-gray-400 ">i</button>
+            <div className="border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-full py-0.5 px-3 text-gray-400 ">i</div>
           </PopoverTrigger>
           <PopoverContent>The top 5 items from each chain have been selected for display to ensure a more diverse selection of options.</PopoverContent>
         </Popover>
