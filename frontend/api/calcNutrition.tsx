@@ -7,9 +7,9 @@ export async function getNutritionInfo() {
       const apiUrl = `${SERVER_URL}/api/food/calcNutrition`;
   
       const response = await fetch(apiUrl);
-      const users = await response.json();
+      const foodData = await response.json();
   
-      return users
+      return foodData
   
     } catch (error) {
       console.error('Error fetching food items:', error);

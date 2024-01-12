@@ -16,6 +16,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 
 export default function TableWrapper(props : any) {
@@ -52,8 +58,14 @@ export default function TableWrapper(props : any) {
 
   return (
     <div className="bg-white/30 p-12 shadow-xl ring-1 ring-gray-900/5 rounded-lg backdrop-blur-lg max-w-4xl mx-auto w-full">
-      <div className="mb-5">
+      <div className="mb-5 flex justify-between">
         <Combobox updateFoodFilter={handleFilterChange}/>
+        <Popover>
+          <PopoverTrigger>
+            <div className="border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-full py-0.5 px-3 text-gray-400 ">i</div>
+          </PopoverTrigger>
+          <PopoverContent>The top 5 items from each chain have been selected for display to ensure a more diverse selection of options.</PopoverContent>
+        </Popover>
       </div>
       <Table>
         <TableCaption>A list of the top options</TableCaption>

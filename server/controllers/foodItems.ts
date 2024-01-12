@@ -20,10 +20,10 @@ type extendedNutritionInfo = {
   }
 };
 
-/*
-GET food items
-*/
 
+/*
+GET nearby food items
+*/
 foodRouter.get('/calcNutrition', async (req, res) => {
   const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds', 'Subway']; // These need to be identical to the names in the DB
   const allResults: Array<Map<string, any>> = [];
@@ -65,9 +65,43 @@ foodRouter.get('/calcNutrition', async (req, res) => {
       allResults.push(result);
     }));
 
-    res.json(allResults);
+    // Flatten the array of objects into a single array of objects
+    const flattenedArray = allResults.flatMap(obj => [...obj["Highest Protein"], ...obj["Highest Protein/Cal Ratio"], ...obj["Highest Carb"], ...obj["Highest Cal"]]);
 
-    console.log("allResults:", allResults);
+    // Function to sort and filter duplicates for each filter type
+    const sortAndFilter = (arr : any, comparator : any) => {
+      const uniqueSet = new Set();
+      return arr
+        .sort(comparator)
+        .filter(obj => {
+          const key = obj.itemName; // Use a key that makes an object unique
+          if (!uniqueSet.has(key)) {
+            uniqueSet.add(key);
+            return true;
+          }
+          return false;
+        })
+        .slice(0, 20);
+    };
+
+    // Sort and filter for each filter type
+    const topProtein = sortAndFilter([...flattenedArray], (a, b) => b.nutritionalinfo[0].protein_grams - a.nutritionalinfo[0].protein_grams);
+    const topCalories = sortAndFilter([...flattenedArray], (a, b) => b.nutritionalinfo[0].calories - a.nutritionalinfo[0].calories);
+    const topCarbs = sortAndFilter([...flattenedArray], (a, b) => b.nutritionalinfo[0].carbohydrates_grams - a.nutritionalinfo[0].carbohydrates_grams);
+    const topRatio = sortAndFilter([...flattenedArray], (a, b) => (b.nutritionalinfo[0].protein_grams / b.nutritionalinfo[0].calories) - (a.nutritionalinfo[0].protein_grams / a.nutritionalinfo[0].calories));
+
+    const totalData = [{
+      "Highest Protein": topProtein,
+      "Highest Protein/Cal Ratio": topRatio,
+      "Highest Carb": topCarbs,
+      "Highest Cal": topCalories,
+    }]
+
+    res.json({
+      nearby: allResults,
+      total: totalData
+    });
+
   } catch (error) {
     console.error(`Error processing restaurants:`, error);
     res.status(500).json({ error: "Internal Server Error" });
