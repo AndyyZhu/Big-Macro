@@ -21,9 +21,53 @@ type extendedNutritionInfo = {
 };
 
 /*
-GET food items
+GET all food items
 */
+foodRouter.get('/calcAllNutrition', async (req, res) => {
+  const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds', 'Subway']; // These need to be identical to the names in the DB
 
+  var result : any = {};
+
+  try {
+    // Process each restaurant
+    await Promise.all(restaurants.map(async (restaurant) => {
+
+      const allNutriInfo = await prisma.nutritionalinfo.findMany();
+      
+      // sort by top 20 best in every category
+      allNutriInfo.sort((a, b) => b.protein_grams - a.protein_grams);
+      const top10Protein = allNutriInfo.slice(0, 20);
+      allNutriInfo.sort((a, b) => b.calories - a.calories);
+      const top10Calories = allNutriInfo.slice(0, 20);
+      allNutriInfo.sort((a, b) => b.carbohydrates_grams - a.carbohydrates_grams);
+      const top10Carbs = allNutriInfo.slice(0, 20);
+      allNutriInfo.sort((a, b) => (b.protein_grams / b.calories) - (a.protein_grams / a.calories));
+      const top10Ratio = allNutriInfo.slice(0, 20);
+
+      // for each of the top 20 -> add the extendedNutritionInfo
+
+      result = {
+        "Highest Protein" : top10Protein,
+        "Highest Protein/Cal Ratio" : top10Calories,
+        "Highest Carb" : top10Carbs,
+        "Highest Cal" : top10Ratio,
+      };
+
+    }));
+
+    res.json(result);
+
+    // console.log("allResults:", allResults);
+  } catch (error) {
+    console.error(`Error processing restaurants:`, error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+/*
+GET nearby food items
+*/
 foodRouter.get('/calcNutrition', async (req, res) => {
   const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds', 'Subway']; // These need to be identical to the names in the DB
   const allResults: Array<Map<string, any>> = [];
