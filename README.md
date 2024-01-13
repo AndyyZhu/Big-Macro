@@ -13,12 +13,14 @@ Discover quick and easy fast-food protein options and enjoy the convenience of f
 
  - [Leaflet](https://leafletjs.com/)
  - [CARTO Map Tile Set](https://carto.com/attributions/)
+ - [shadcn/ui](https://ui.shadcn.com)
 
 ### Nutrition Data
  - [McDonalds](https://www.mcdonaldsmenu.ca/mcdonalds-nutrition/)
  - [Tim Horton's](https://cdn.sanity.io/files/czqk28jt/staging_th_ca/ad1ec9d8854544a068ad15dfb0fe71ddf896deb4.pdf/)
  - [Popeyes](https://rbi-prod-plk-144807065118-nutrition-info.s3.amazonaws.com/en-US/Popeyes+Canada+Allergen+%26+Nutrition+Guide+2023.pdf)
  - [Subway](https://www.subway.com/en-ca/menunutrition/nutrition)
+ - [Harvey's](https://www.harveys.ca/en/nutrition.html)
 
 ## Authors
 
