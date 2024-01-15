@@ -51,7 +51,7 @@ export default function Wrapper(){
               <Table data={foodItems}/>
             </Suspense>
             ) : (
-              <TablePlaceholder message="Allow location to see the best fast food options near you."/>
+              <TablePlaceholder message="Allow location to see the best fast food options near you"/>
             )}
           </div>
       </allowedLocationContext.Provider>
