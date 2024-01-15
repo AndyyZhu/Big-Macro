@@ -3,10 +3,8 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 import Table from '@/components/table'
 import TablePlaceholder from '@/components/table-placeholder'
-import ExpandingArrow from '@/components/expanding-arrow'
-import Map from '@/components/map';
 import { getNutritionInfo } from '@/api/calcNutrition'
-import MapWrapper from '@/components/mapWrapper'
+import Wrapper from '@/components/locationComponentsWrapper'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,16 +33,7 @@ export default async function Home() {
         <Image src="/Tims.png" width={75} height={75} alt="Tims" className="absolute right-5 top-1/5 transform -translate-y-1/2 w-16 h-16 md:w-24 md:h-24 transform hover:rotate-180 transition-transform duration-300 ease-in-out" />
       </div>
 
-      <MapWrapper />
-
-      {/* Commenting out the nearby table until we get tables per restaurant */}
-      {/* <h2 className="pt-8 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-4xl font-medium tracking-tight text-transparent md:text-3xl">
-        Best Options Near You
-      </h2>
-
-      <Suspense fallback={<TablePlaceholder />}>
-        <Table data={nutriData} />
-      </Suspense> */}
+      <Wrapper/>
 
       <h2 className="pt-20 pb-8 bg-gradient-to-br from-black via-[#171717] to-[#575757] bg-clip-text text-center text-4xl font-medium tracking-tight md:text-3xl">
         Best Options Overall
