@@ -24,11 +24,11 @@ import {
 } from "@/components/ui/popover"
 
 
-export default function TableWrapper(props : any) {
+const TableWrapper = ({ data } : {data : any}) => {
 
-  const { data } = props
 
   const updateData = (filterString: string) => {
+    console.log(data)
     var res : any = []
     data.forEach((restaurant_object : any)=> {
       if (filterString == "highest protein") {
@@ -45,17 +45,18 @@ export default function TableWrapper(props : any) {
     return res
   }
 
-  const foodItems = updateData("highest protein")
-  const [foodData, setFoodData] = React.useState(foodItems)
+  const [foodData, setFoodData] = React.useState([])
+
+  React.useEffect(() => {
+    const foodItems = updateData("highest protein")
+    setFoodData(foodItems)
+  }, [data])
 
   // Callback function to receive data from the child Combobox component
   const handleFilterChange = (filterString : string) => {
     setFoodData(updateData(filterString))
   };
   
-  const startTime = Date.now()
-  const duration = Date.now() - startTime
-
   return (
     <div className="bg-white/30 p-12 shadow-xl ring-1 ring-gray-900/5 rounded-lg backdrop-blur-lg max-w-4xl mx-auto w-full">
       <div className="mb-5 flex justify-between">
@@ -68,7 +69,7 @@ export default function TableWrapper(props : any) {
         </Popover>
       </div>
       <Table>
-        <TableCaption>A list of the top options</TableCaption>
+        <TableCaption>A list of the top food item options</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[130px]">Restaurant</TableHead>
@@ -112,3 +113,5 @@ export default function TableWrapper(props : any) {
     </div>
   )
 }
+
+export default TableWrapper

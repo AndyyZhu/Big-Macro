@@ -8,33 +8,22 @@ import { useContext, useEffect, useState } from 'react'
 import { LocationContext, allowedLocationContext } from "@/context/locationContext"
 import { getChainData } from '@/api/getChainData'
 
-function MapContent({ userCoordinates, allowedLocation, setLocationsArray }: { userCoordinates: number[], allowedLocation: boolean, setLocationsArray: React.Dispatch<React.SetStateAction<Array<string>>>}) {
+function MapContent({ userCoordinates, allowedLocation, locationsArray }: { userCoordinates: number[], allowedLocation: boolean, locationsArray: Array<string>}) {
     const map = useMap();
 
     useEffect(() => {
         if (allowedLocation) {
-            const retrieveChainData = async (lat: number, lng: number) => {
-                const chainData = await getChainData(lat, lng)
-                setLocationsArray(chainData.allLocations)
-            }
-            retrieveChainData(userCoordinates[0], userCoordinates[1])
-
             // pan to user's location
             map.flyTo([userCoordinates[0], userCoordinates[1]], 15);
         }
-
-        return () => {
-            // Cleanup code here
-        };
     }, [userCoordinates, allowedLocation, map]);
 
     return null; 
 }
 
 
-function Map(props: any) {
+const Map = ({ locationsArray } : {locationsArray : any}) => {
 
-    const [locationsArray, setLocationsArray] = useState<string []>([])
     let { userCoordinates, setUserCoordinates } = useContext(LocationContext);
     const {allowedLocation, setAllowedLocation} = useContext(allowedLocationContext)
 
@@ -51,7 +40,7 @@ function Map(props: any) {
                     icon={user}
                 />
             )}
-            <MapContent userCoordinates={userCoordinates} allowedLocation={allowedLocation} setLocationsArray={setLocationsArray}/>
+            <MapContent locationsArray={locationsArray} userCoordinates={userCoordinates} allowedLocation={allowedLocation}/>
             {locationsArray && locationsArray.map((location: any) => {
                 let icon = mcD
                 if (location.name == 'Tim Hortons') {
