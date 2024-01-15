@@ -25,7 +25,17 @@ type extendedNutritionInfo = {
 GET nearby food items
 */
 foodRouter.get('/calcNutrition', async (req, res) => {
-  const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds', 'Subway']; // These need to be identical to the names in the DB
+  var restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds', 'Subway']; // These need to be identical to the names in the DB
+  
+  // if finding nearby restauraunts -> stringArray is the array of restaurants, else undefined
+  const { stringArray } = req.query
+  if (stringArray && typeof stringArray === 'string') {
+    const realArray = JSON.parse(stringArray);
+    restaurants = realArray
+    // Remove apostrophes from all elements in the array -> match db names
+    restaurants = restaurants.map((str) => str.replace(/'/g, ''));
+  }
+  
   const allResults: Array<Map<string, any>> = [];
 
   try {
