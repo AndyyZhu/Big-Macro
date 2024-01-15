@@ -31,7 +31,6 @@ export default function Wrapper(){
             setChains(chainData.nearbyChains)
             const foodData = await getFoodItems(chainData.nearbyChains)
             setFoodItems(foodData.nearby)
-            console.log(foodData.nearby)
         }
         retrieveChainAndFoodData(userCoordinates[0], userCoordinates[1])
     }
@@ -52,7 +51,7 @@ export default function Wrapper(){
               <Table data={foodItems}/>
             </Suspense>
             ) : (
-              <TablePlaceholder message="Allow location to see the best options around you...                "/>
+              <TablePlaceholder message="Allow location to see the best options around you..."/>
             )}
           </div>
       </allowedLocationContext.Provider>

@@ -28,7 +28,6 @@ const TableWrapper = ({ data } : {data : any}) => {
 
 
   const updateData = (filterString: string) => {
-    console.log(data)
     var res : any = []
     data.forEach((restaurant_object : any)=> {
       if (filterString == "highest protein") {
