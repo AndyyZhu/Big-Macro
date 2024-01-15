@@ -1,7 +1,6 @@
 import SERVER_URL from "@/lib/envPath";
 
 export async function getFoodItems( nearbyChains : string[] ) {
-
   try {
     const queryString = `stringArray=${encodeURIComponent(JSON.stringify(nearbyChains))}`;
 
