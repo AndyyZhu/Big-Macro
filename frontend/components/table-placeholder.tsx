@@ -1,14 +1,22 @@
 import RefreshButton from './refresh-button'
 
-export default function TablePlaceholder() {
+export default function TablePlaceholder(props: any) {
+
+  var message
+  if (!props.message){
+    message = "Fetching food items..."
+  } else {
+    message = props.message
+  }
+
   return (
-    <div className="bg-white/30 p-12 shadow-xl ring-1 ring-gray-900/5 rounded-lg backdrop-blur-lg max-w-xl mx-auto w-full">
+    <div className="bg-white/30 p-12 shadow-xl ring-1 ring-gray-900/5 rounded-lg backdrop-blur-lg max-w-4xl mx-auto w-full">
       <div className="flex justify-between items-center mb-4">
         <div className="space-y-1">
-          <h2 className="text-xl font-semibold">Food Itens</h2>
-          <p className="text-sm text-gray-500">Fetching food items...</p>
+          <h2 className="text-xl font-semibold">Food Items</h2>
+          <p className="text-sm text-gray-500">{message}</p>
         </div>
-        <RefreshButton />
+        {/* <RefreshButton /> */}
       </div>
       <div className="divide-y divide-gray-900/5">
         {[...Array(3)].map((_, i) => (
