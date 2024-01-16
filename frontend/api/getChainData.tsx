@@ -21,7 +21,7 @@ export async function getChainData(lat : number, lng : number): Promise<ChainDat
 
       const apiUrl = `${SERVER_URL}/api/places/near?radius=${radius}&lat=${lat}&lng=${lng}&chain=${chain}`
 
-      const response = await fetch(apiUrl);
+      const response = await fetch(apiUrl);  
       const data = await response.json();
       const chainLocations = data.results.map((result: any) => ({
         name: result.name,

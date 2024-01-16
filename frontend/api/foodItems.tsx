@@ -1,16 +1,14 @@
 import SERVER_URL from "@/lib/envPath";
 
 export async function getFoodItems( nearbyChains : string[] ) {
-
   try {
-
     const queryString = `stringArray=${encodeURIComponent(JSON.stringify(nearbyChains))}`;
 
-    const apiUrl = `${SERVER_URL}/api/food?${queryString}`;
+    const apiUrl = `${SERVER_URL}/api/food/calcNutrition?${queryString}`;
 
     const response = await fetch(apiUrl, { 
       method: 'GET',
-      cache: 'force-cache'
+      // cache: 'force-cache'
     });
     const food = await response.json();
     return food
