@@ -35,3 +35,10 @@ export const subway = new Icon ({
   iconAnchor : [10,10],
   popupAnchor : [0, 0]
 })
+
+export const harveys = new Icon ({
+  iconUrl : 'Harveys.svg',
+  iconSize : [22,22],
+  iconAnchor : [10,10],
+  popupAnchor : [0, 0]
+})
