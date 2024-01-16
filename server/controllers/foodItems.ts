@@ -25,7 +25,7 @@ type extendedNutritionInfo = {
 GET nearby food items
 */
 foodRouter.get('/calcNutrition', async (req, res) => {
-  const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds', 'Subway']; // These need to be identical to the names in the DB
+  const restaurants = ['Tim Hortons', 'Popeyes', 'McDonalds', 'Subway', 'Harveys']; // These need to be identical to the names in the DB
   const allResults: Array<Map<string, any>> = [];
 
   try {
